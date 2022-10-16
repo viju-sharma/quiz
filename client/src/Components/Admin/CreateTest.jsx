@@ -77,7 +77,7 @@ const CreateTest = () => {
           </div>
         </div>
         <div className="flex justify-center items-center">
-          <button className="text-slate-500 bg-slate-300 font-medium rounded-lg text-sm px-16 py-2.5 text-center mr-2 mb-2">
+          <button className="text-slate-500 hover:bg-blue-300 bg-slate-300 font-medium rounded-lg text-sm px-16 py-2.5 text-center mr-2 mb-2">
             Add Question
           </button>
           <button className="text-white bg-gradient-to-br from-purple-700 to-blue-500 hover:bg-gradient-to-bl  font-medium rounded-lg text-sm px-16 py-2.5 text-center mr-2 mb-2">
