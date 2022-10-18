@@ -17,6 +17,12 @@ app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// handle incoming Requests
+const authRoutes = require("./routes/authRoutes");
+const quizRoutes = require("./routes/quizTestRoutes");
+app.use("/api/auth", authRoutes);
+app.use("/api/quiz", quizRoutes);
+
 // Serve Static assets if in production
 if (process.env.NODE_ENV === "production") {
   // set static folder
@@ -26,12 +32,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
-
-// handle incoming Requests
-const authRoutes = require("./routes/authRoutes");
-const quizRoutes = require("./routes/quizTestRoutes");
-app.use("/api/auth", authRoutes);
-app.use("/api/quiz", quizRoutes);
 
 mongoose
   .connect(process.env.MONGODB_CLUSTER)
