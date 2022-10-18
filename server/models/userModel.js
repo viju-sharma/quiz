@@ -15,7 +15,8 @@ const usersSchema = new Schema(
     picture: {
       type: String,
     },
-    email_verified: { type: Boolean, default: false,  },
+    email_verified: { type: Boolean, default: false },
+    questions: [{ type: Schema.Types.ObjectId, ref: "question" }],
   },
   {
     timestamps: true,

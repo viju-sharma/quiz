@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { login } from "./features/auth-slice";
 import { useDispatch, useSelector } from "react-redux";
+import Test from "./Components/Student/Test";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,10 @@ function App() {
         <Route
           path="/makeQuiz"
           element={user.id ? <CreateTest /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/test/:id"
+          element={user.id ? <Test /> : <Navigate to="/login" />}
         />
       </Routes>
     </div>

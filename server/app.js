@@ -29,8 +29,9 @@ if (process.env.NODE_ENV === "production") {
 
 // handle incoming Requests
 const authRoutes = require("./routes/authRoutes");
-
+const quizRoutes = require("./routes/quizTestRoutes");
 app.use("/api/auth", authRoutes);
+app.use("/api/quiz", quizRoutes);
 
 mongoose
   .connect(process.env.MONGODB_CLUSTER)

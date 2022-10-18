@@ -1,12 +1,16 @@
 import React, { Fragment } from "react";
 import Navigation from "../Navigation/Navigation";
-import AddQuestion from '../Questions/AddQuestion/AddQuestion';
+import AddQuestion from "../Questions/AddQuestion/AddQuestion";
 
 const CreateTest = () => {
   return (
     <Fragment>
       <Navigation />
-      <AddQuestion />
+      <div className="flex justify-center items-center">
+        <div className="container mx-16 my-5">
+          <AddQuestion />
+        </div>
+      </div>
     </Fragment>
   );
 };
