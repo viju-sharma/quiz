@@ -1,20 +1,28 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
-const userNavigation = [{ name: "Sign out", href: "#" }];
+import classes from "./Navigation.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { logout } from "../../features/auth-slice";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Navigation() {
+  const user = useSelector((state) => state.auth);
+
+  const divClasses = [classes.div1, "min-h-full"];
+
+  const dispatch = useDispatch();
+
+  const logoutFun = async () => {
+    await axios.post("/api/auth/logout");
+    dispatch(logout());
+    window.location.reload();
+  };
+
   return (
     <>
       {/*
@@ -25,11 +33,14 @@ export default function Navigation() {
         <body class="h-full">
         ```
       */}
-      <div className="min-h-full">
+      <div className={divClasses.join(" ")}>
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
             <>
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div
+                className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+                style={{ height: "4.5rem" }}
+              >
                 <div className="flex h-16 items-center justify-between">
                   <div className="flex items-center">
                     <div className="flex items-baseline space-x-4">
@@ -38,11 +49,15 @@ export default function Navigation() {
                           "text-gray-300 hover:text-white",
                           "px-3 py-2 rounded-md text-xl font-medium"
                         )}
+                        style={{ fontSize: "1.4rem", marginTop: "0.4rem" }}
                       >
                         Proctor
                       </span>
                     </div>
-                    <div className="hidden md:block">
+                    <div
+                      className="hidden md:block"
+                      style={{ marginTop: "0.5rem" }}
+                    >
                       <div className="ml-10 flex items-baseline space-x-4">
                         <span
                           className={classNames(
@@ -52,13 +67,17 @@ export default function Navigation() {
                             "px-3 py-2 rounded-md text-sm font-medium"
                           )}
                           aria-current="page"
+                          style={{ fontSize: "1.3rem" }}
                         >
                           Dashboard
                         </span>
                       </div>
                     </div>
                   </div>
-                  <div className="hidden md:block">
+                  <div
+                    className="hidden md:block"
+                    style={{ marginTop: "0.45rem" }}
+                  >
                     <div className="ml-4 flex items-center md:ml-6">
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
@@ -67,7 +86,7 @@ export default function Navigation() {
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src={user.imageUrl}
+                              src={user.picture}
                               alt=""
                             />
                           </Menu.Button>
@@ -85,6 +104,7 @@ export default function Navigation() {
                             <Menu.Item>
                               {({ active }) => (
                                 <span
+                                  onClick={logoutFun}
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"
@@ -139,7 +159,7 @@ export default function Navigation() {
                     <div className="flex-shrink-0">
                       <img
                         className="h-10 w-10 rounded-full"
-                        src={user.imageUrl}
+                        src={user.picture}
                         alt=""
                       />
                     </div>
@@ -160,16 +180,12 @@ export default function Navigation() {
                     </button>
                   </div>
                   <div className="mt-3 space-y-1 px-2">
-                    {userNavigation.map((item) => (
-                      <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        href={item.href}
-                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                      >
-                        {item.name}
-                      </Disclosure.Button>
-                    ))}
+                    <Disclosure.Button
+                      onClick={logoutFun}
+                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                    >
+                      Logout
+                    </Disclosure.Button>
                   </div>
                 </div>
               </Disclosure.Panel>

@@ -1,0 +1,21 @@
+.question{
+    position: relative;
+    width: 80%;
+    background-color: rgb(253, 253, 253);
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+
+.questionText{
+    margin: 2rem;
+    font-size: 1.2rem;
+}
+
+.points{
+    position: absolute;
+    top: 2rem;
+    right: 5rem;
+}

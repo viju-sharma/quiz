@@ -17,8 +17,6 @@ app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.use("/api/verify", verificationRoutes);
-
 // Serve Static assets if in production
 if (process.env.NODE_ENV === "production") {
   // set static folder
@@ -28,6 +26,11 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
+
+// handle incoming Requests
+const authRoutes = require("./routes/authRoutes");
+
+app.use("/api/auth", authRoutes);
 
 mongoose
   .connect(process.env.MONGODB_CLUSTER)
